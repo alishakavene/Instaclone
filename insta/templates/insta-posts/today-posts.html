@@ -17,8 +17,16 @@
     <div class="row">
         <h2 class="text-center">There No Posts to display</h2>
     </div>
-    {% endfor %}
+
+    <!--Display news Article images  -->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <img src="{{posts_item.post_image.url}}" class="img-responsive" alt="Image">
+    </div>
 
 </div>
+{% endfor %}
+
+</div>
+
 
 {% endblock %}
