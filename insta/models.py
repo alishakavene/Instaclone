@@ -20,7 +20,8 @@ class Post(models.Model):
     User = models.ForeignKey(User,on_delete=models.CASCADE)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
-    post_image = models.ImageField(upload_to = 'postss/')
+    image = models.ImageField(upload_to = 'posts/')
+
     @classmethod
     def todays_posts(cls):
         today = dt.date.today()
