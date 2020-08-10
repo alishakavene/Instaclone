@@ -1,11 +1,16 @@
-{%extends 'insta-posts/base.html'%} {% load bootstrap3 %} {% block content %} {{block.super}}
+{% extends 'insta-posts/base.html'%} {% block content %} {{block.super}} {% load bootstrap3 %}
 
 <!-- Looping through news   -->
-<div class="container">
+<div class="container-fluid">
+
     <form action="{%url 'postsToday'%}" method="post">
         {%csrf_token%} {% bootstrap_form letterForm layout='inline' %}
         <input type="submit" value="Subscribe">
     </form>
+
+</div>
+<div class="container">
+
     {% for posts_item in posts %}
 
     <div class="row">

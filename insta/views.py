@@ -15,7 +15,7 @@ def posts_today(request):
             print('valid')
     else:
         form = NewsLetterForm()
-    return render(request, 'insta-posts/today-posts.html', {"date": date,"posts":posts})
+    return render(request, 'insta-posts/today-posts.html', {"date": date,"posts":posts,"letterForm":form})
 
 
 def past_days_posts(request, past_date):
