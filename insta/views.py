@@ -4,24 +4,12 @@ import datetime as dt
 from .models import Post
 
 # Create your views here.
-def welcome(request):
-    return render( request,'welcome.html')
 
 def posts_today(request):
     date = dt.date.today()
     posts = Post.todays_posts()
     return render(request, 'insta-posts/today-posts.html', {"date": date,"posts":posts})
 
-def convert_dates(dates):
-
-    # Function that gets the weekday number for the date.
-    day_number = dt.date.weekday(dates)
-
-    days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday',"Sunday"]
-
-    # Returning the actual day of the week
-    day = days[day_number]
-    return day
 
 def past_days_posts(request, past_date):
     try:
@@ -51,3 +39,10 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'insta-postss/search.html',{"message":message})
+
+def post(request,post_id):
+    try:
+        post = Post.objects.get(id = post_id)
+    except DoesNotExist:
+        raise Http404()
+    return render(request,"insta-posts/post.html", {"post":post})
