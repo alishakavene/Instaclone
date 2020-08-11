@@ -1,2 +1,0 @@
-Hello {{name}}
-<h5>Welcome to InstaClone a photo sharing app that you can share your favourite photos and view your friends photos</h5>
