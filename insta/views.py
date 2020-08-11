@@ -3,12 +3,11 @@ from django.http  import HttpResponse,Http404,HttpResponseRedirect
 import datetime as dt
 from .models import Post
 from .forms import NewsLetterForm
+from .email import send_welcome_email
 
 # Create your views here.
 
 def posts_today(request):
-    date = dt.date.today()
-    posts = Post.todays_posts()
    if request.method == 'POST':
         form = NewsLetterForm(request.POST)
         if form.is_valid():
@@ -16,6 +15,8 @@ def posts_today(request):
             email = form.cleaned_data['email']
             recipient = NewsLetterRecipients(name = name,email =email)
             recipient.save()
+            send_welcome_email(name,email)
+            
             HttpResponseRedirect('posts_today')
     else:
         form = NewsLetterForm()
