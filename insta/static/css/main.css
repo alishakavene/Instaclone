@@ -1,11 +1,17 @@
-.site-header .navbar-nav .nav-link {
-    color: #cbd5db;
+.navbar-inverse {
+    border-radius: 0px;
+    border: 0px;
+    font-size: 12px;
 }
 
-.site-header .navbar-nav .nav-link:hover {
-    color: black;
+.nav-link {
+    color: gray;
 }
 
-.site-header .navbar-nav .nav-link.active {
-    font-weight: 500;
+.nav-link:hover {
+    color: white;
+}
+
+.mr-auto {
+    margin: -10px;
 }
