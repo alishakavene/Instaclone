@@ -21,5 +21,6 @@ class tags(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=80)
     content = models.TextField()
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_image = models.ImageField(upload_to='images/')
