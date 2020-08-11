@@ -4,8 +4,13 @@ import datetime as dt
 from .models import Post
 from .forms import NewsLetterForm
 from .email import send_welcome_email
+from django.contrib.auth.decorators import login_required.
 
-# Create your views here.
+
+@login_required(login_url='/accounts/login/')
+def article(request, article_id):
+
+    # Create your views here.
 
 
 def posts_today(request):
