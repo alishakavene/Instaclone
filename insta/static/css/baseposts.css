@@ -11,3 +11,7 @@ h1 {
 .navbar-brand {
     color: white;
 }
+
+.button {
+    border: none;
+}
