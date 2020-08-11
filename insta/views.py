@@ -5,4 +5,5 @@ from django.http import HttpResponse
 
 
 def homepage(request):
-    return HttpResponse('Welcome to InstaClone')
+
+    return render(request, 'instaclone/homepage.html',)
