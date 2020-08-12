@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'bootstrap3',
     'user.apps.UserConfig',
+    'crispy_forms',
     'insta.apps.InstaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -134,9 +135,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Email configurations remember to install python-decouple
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+LOGIN_REDIRECT_URL = 'insta-home'
