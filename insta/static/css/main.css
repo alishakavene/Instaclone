@@ -1,17 +1,16 @@
-.navbar-inverse {
-    border-radius: 0px;
+.navbar-light {
+    background-color: #420517;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+    font-size: 16px;
+    background-color: #420517;
     border: 0px;
-    font-size: 12px;
+    border-radius: 0px;
 }
 
-.nav-link {
-    color: gray;
-}
-
-.nav-link:hover {
-    color: white;
-}
-
-.mr-auto {
-    margin: -10px;
+.navbar-brand {
+    font-size: 16px;
+    margin-bottom: 5px;
 }
