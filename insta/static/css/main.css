@@ -1,23 +1,22 @@
-.navbar-light {
-    background-color: #420517;
-    font-family: Arial, Helvetica, sans-serif;
+.navbar-expand-lg {
+    background-color: white;
+    box-shadow: 2px 2px 12px #c4911a;
 }
 
-.navbar {
-    font-size: 16px;
-    background-color: #420517;
+.btn-outline-success {
+    color: #c4911a;
     border: 0px;
-    border-radius: 0px;
 }
 
-.navbar-brand {
-    font-size: 16px;
-    margin-bottom: 5px;
+.btn-outline-success:hover {
+    background-color: #c4911a;
+    color: white;
 }
 
 body {
-    background: #fafafa;
+    background: #e0ded7;
     color: #333333;
+    font-size: 16px;
 }
 
 h1,
@@ -35,18 +34,6 @@ ul {
 
 .bg-steel {
     background-color: #5f788a;
-}
-
-.site-header .navbar-nav .nav-link {
-    color: #cbd5db;
-}
-
-.site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
-}
-
-.site-header .navbar-nav .nav-link.active {
-    font-weight: 500;
 }
 
 .content-section {
@@ -94,8 +81,8 @@ a.article-title:hover {
 }
 
 .account-img {
-    height: 130px;
-    width: 130px;
+    height: 135px;
+    width: 128px;
     margin-right: 20px;
     margin-bottom: 16px;
 }
