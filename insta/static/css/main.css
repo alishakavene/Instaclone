@@ -1,6 +1,8 @@
 .navbar-expand-lg {
     background-color: white;
     box-shadow: 2px 2px 12px #c4911a;
+    padding: 2px;
+    word-spacing: 3px;
 }
 
 .btn-outline-success {
@@ -10,13 +12,23 @@
 
 .btn-outline-success:hover {
     background-color: #c4911a;
+    color: black;
+}
+
+.nav-link {
+    word-spacing: 6px;
+}
+
+.nav-link:hover {
+    background-color: #c4911a;
     color: white;
 }
 
 body {
     background: #e0ded7;
     color: #333333;
-    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
 }
 
 h1,

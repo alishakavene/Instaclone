@@ -1,17 +1,157 @@
- <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'insta-home' %}">InstaClone</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                    <div class="navbar-nav mr-auto">
-                        {% if user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{% url 'profile'%}">Profile</a>
-                        <a class="nav-item nav-link" href="{% url 'logout'%}">logout</a> {% else %}
-                        <a class="nav-item nav-link" href="{% url 'login'%}">Login</a>
-                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a> {% endif %}
-                    </div>
+ADDING IMAGES IN A SINGLE POST: Yes, it worked for me.
 
-                </div>
+Firstly, Thanks a lot Corey for making this awesome series on Django. We have been learning a lot about Django from this series.
+
+@Corey, if you see this comment, please review it once.
+
+<<< Before doing any code change, if you are following along with the series and typing all codes yourself, I highly recommend finishing the series upto atleast "Part 12". Because there will be so many additional codes for other functionalities. >>>
+
+Sorry, the post is little long, but the changes will be done in minutes.
+
+I was going through the codes again after the series and thought about the functionality of adding images inside each post. Then I remembered how Corey added profile images to each individual users in profile.html. So, I took some reference from that functionality and tested by trial and error.
+
+(These are just some minor additional code change, so it will not affect the exiting site. But, we can keep a copy of the project folder for backup)
+
+We need code change in the following sections:
+
+1. blog/models.py (Existing DB Change)
+2. Migration Command
+3. blog/views.py
+4. blog/post_form.html
+5. blog/post_detail.html
+6. crating "blog_image" directory( like we did in profile_pics" )
+
+* Please make sure the server is not running
+
+1. MODELS.PY CHANGE  =============================================
+ File Path: {project/folder}/blog/models.py  
+  
+ New Code(Addition of 'image' field in last line in "Post class")
+ ----------------------------------------------
+
+ class Post(models.Model):
+       title = models.CharField(max_length=100)
+       content = models.TextField()
+       date_posted = models.DateTimeField(default=timezone.now)
+       author = models.ForeignKey(User, on_delete=models.CASCADE)
+       image = models.ImageField(default='default.jpg', upload_to='blog_images')
+
+=====================================================================
+2. MIGRATION COMMAND IN YOUR TERMINAL(run inside project folder where manage.py is located as Corey explained.
+----------------------------------------------------
+ a) python manage.py makemigrations
+ (output will have some 'image' field addition 
+ 
+ b) python manage.py migrate
+ (Output has migration OK statement)
+
+'image' field will be added to the database by this commands
+========================================================
+3. VIEW CHANGE
+
+File Path: {project/folder}/blog/views.py
+ 
+ (CHANGE in PostCreateView)
+ New Code(Addition of 'image' object in fields list)
+ ----------------------------------------------
+
+ class PostCreateView(LoginRequiredMixin, CreateView):
+       model = Post
+       fields = ['title', 'content', 'image']
+
+       def form_valid(self, form):
+            form.instance.author = self.request.user
+            return super().form_valid(form)
+   
+ --------------------------------------------------  
+ (CHANGE in PostUpdateView)
+ New Code(Addition of 'image' object in fields list)
+ ----------------------------------------------
+
+ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+       model = Post
+       fields = ['title', 'content', 'image']
+
+       def form_valid(self, form):
+            form.instance.author = self.request.user
+             return super().form_valid(form)
+
+       def test_func(self):
+             post = self.get_object()
+             if self.request.user == post.author:
+                  return True
+             return False
+=====================================================================
+4. POST FORM HTML CHANGE
+I missed this step and got stuck for long time lol.
+
+File Path: {project/folder}/blog/templates/blog/post_form.html
+----------------------------------------------------
+
+ New Code(Addition of enctype="multipart/form-data" in form tag)
+ ----------------------------------------------
+  <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Blog Post</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Post</button>
+            </div>
+        </form>
+
+This allows forms to accept images.
+========================================================
+
+5. POST DETAIL HTML CHANGE
+
+File Path: {project/folder}/blog/templates/blog/post_detail.html
+----------------------------------------------------
+
+We can do this change in two ways according what we want.
+
+ a) Always setting a default.jpg whenever user doesn't upload an image (like we did in profile pics). If user uploads an image, then that image is shown.
+ 
+ 
+ b) If user uploads an image, then that image will be shown, otherwise the post content is shown without images.
+ ----------------------------------------------------------------------
+ A) CODE CHANGE - Added the image tag
+ (I am showing here only the last lines of the html file as the changes are near the end line)
+ 
+ 
+    <h2 class="article-title">{{ object.title }}</h2>
+    <img style="width:100%; height:auto;" src="{{ object.image.url }}">
+    <p class="article-content">{{ object.content }}</p>
+   </div>
+  </article>
+ {% endblock content %}
+ 
+ -------------------------------------------------------------------
+
+ B) CODE CHANGE - Added the image tag with conditions
+ (I am showing here only the last lines of the html file as the changes are near the end line)
+ 
+ 
+            <h2 class="article-title">{{ object.title }}</h2>
+            {% if object.image.url != "/media/default.jpg" %}
+                <img style="width:100%; height:auto;" class="img-responsive" src="{{ object.image.url }}">
+            {% endif %}
+            <p class="article-content">{{ object.content }}</p>
+        </div>
+    </article>
+{% endblock content %}
+
+
+I don't know much about CSS, so please set a better class if you have other ideas
+========================================================
+6. CREATING 'blog_images' DIRECTORY
+
+Path : {Project folder}/media/
+ 
+ Create a directory 'blog-images'
+
+
+Now start the server and load the page. It should work. Sorry the post went long. 
+
+All the best :)
